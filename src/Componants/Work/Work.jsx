@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Work.css'
+
+import { TabsData } from '../TabsData'
 import tes from '../../assets/tes.jpg'
 
 const Work = () => {
+    const [activeTab, setActiveTab] = useState(0);
+    const handleClicked = (id) =>{
+        setActiveTab(id);
+     };
+    
   return (
     <div className='work-container-work'>
 
@@ -13,18 +20,31 @@ const Work = () => {
 
         <div className="work-container-bottom">
             <div className="work-content-left">
-                <ul>
-                    <li className='product'>
-                        <span>Product Details</span><br /><br />
-                        Descriptions, specifications, and variations - size, color, features.
-                        High-quality photos or videos for visual appeal.
-                        </li>
-                    <li className='customer'><span>Customer Information</span><br /><br />
-                        Contact details (name, email, phone).
-                        Shipping and billing addresses.</li>
-                    <li className='3'>3</li>
-                    <li className='4'>4</li>
-                </ul>
+            <ul>
+                <li>
+                    {
+                TabsData.map((tab,i) => (
+                    // Apply "active" class if the active tab
+                    <li key={i} className={activeTab === i ? "active" : ""}
+                    onClick={() => handleClicked(i)}
+                    >
+                        {tab.title}
+                    </li>
+                ))}
+                </li>
+            
+        </ul>
+        <div className="content">
+            {
+                TabsData.map((data,i) => (
+                    // apply "active class"
+                    <div className={`desc ${activeTab === i ? "active" : ""}`} key={i}>
+                        {data.desc}
+                    </div>
+                ))
+            }
+        </div>
+
             </div>
             <div className="work-content-right">
                 <img src={tes} alt="s" />
